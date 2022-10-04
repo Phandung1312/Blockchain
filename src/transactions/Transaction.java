@@ -14,7 +14,7 @@ public class Transaction {
 	private User receiver;
 	private User sender;
 	private double amount;
-	private String hashedMessage;
+	private String hashedMessage;// ?
 	private byte[] signature;
 	public Transaction(User sender, User receiver, double amount)
 			throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException,
@@ -25,17 +25,18 @@ public class Transaction {
 		this.hashedMessage = SHA256Hash.hash(this.toString());
 		this.signature = sender.sign(this);
 	}
-	public static ArrayList<Transaction> bunchOfTransactions() throws NoSuchAlgorithmException, InvalidKeyException,
-			NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
-		ArrayList<Transaction> transactions = new ArrayList<Transaction>();
-		for (int i = 0; i < 3; i++) {
-			User sender = new User("User" + Math.round(100 * Math.random()));
-			User receiver = new User("User" + Math.round(100 * Math.random()));
-			double amount = 1000 * Math.random();
-			transactions.add(new Transaction(sender, receiver, amount));
-		}
-		return transactions;
-	}
+//	//
+//	public static ArrayList<Transaction> bunchOfTransactions() throws NoSuchAlgorithmException, InvalidKeyException,
+//			NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
+//		ArrayList<Transaction> transactions = new ArrayList<Transaction>();
+//		for (int i = 0; i < 3; i++) {
+//			User sender = new User("User" + Math.round(100 * Math.random()));
+//			User receiver = new User("User" + Math.round(100 * Math.random()));
+//			double amount = 1000 * Math.random();
+//			transactions.add(new Transaction(sender, receiver, amount));
+//		}
+//		return transactions;
+//	}
 	public User getSender() {
 		return sender;
 	}
@@ -58,5 +59,8 @@ public class Transaction {
 		sb.append("[ " + this.getSender().getName() + ": " + this.getAmount() + " -> " + this.getReceiver().getName()
 				+ " ]");
 		return sb.toString();
+	}
+	public void isValid() {
+		//
 	}
 }
